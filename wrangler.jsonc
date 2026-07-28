@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kneerun",
+  "compatibility_date": "2026-07-28",
+  "pages_build_output_dir": ".",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kneerun-waitlist",
+      "database_id": "ea2b5d53-cca2-4b02-a753-d2007bcbf637"
+    }
+  ]
+}

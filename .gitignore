@@ -9,3 +9,6 @@
 *.log
 .env
 .env.*
+
+# Cloudflare / wrangler local state
+.wrangler/

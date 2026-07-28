@@ -4,6 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KneeRun — Your path back to running after ACL surgery</title>
+<meta name="description" content="KneeRun helps you get genuinely back to running after ACL reconstruction — not just off crutches. A plan built for the return-to-run phase, where reinjury risk is highest.">
+<link rel="canonical" href="https://kneerun.com/">
+<meta name="theme-color" content="#14140F">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kneerun.com/">
+<meta property="og:title" content="KneeRun — Your path back to running after ACL surgery">
+<meta property="og:description" content="Most rehab apps get you off crutches. KneeRun gets you back on the road, with a plan built for the return to running after ACL surgery.">
+<meta property="og:image" content="https://kneerun.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KneeRun — Your path back to running after ACL surgery">
+<meta name="twitter:description" content="Most rehab apps get you off crutches. KneeRun gets you back on the road, with a plan built for the return to running after ACL surgery.">
+<meta name="twitter:image" content="https://kneerun.com/og.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -244,6 +262,16 @@
   }
   .email-form input::placeholder { color: var(--muted); }
   .form-note { font-size: 12.5px; color: var(--muted); margin-top: 14px; }
+  .form-note.is-error { color: #ff9d9d; }
+  .form-note.is-success { color: var(--accent); }
+  .btn-primary:disabled { opacity: 0.6; cursor: default; }
+  .visually-hidden {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+  }
 
   /* ---------- Footer ---------- */
   footer {
@@ -352,11 +380,13 @@
   <div class="wrap">
     <h2>Be first to run with it</h2>
     <p>We're building KneeRun now. Leave your email and we'll let you know the moment early access opens.</p>
-    <form class="email-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('button').textContent='You\'re on the list';">
-      <input type="email" placeholder="you@example.com" required>
-      <button class="btn-primary" type="submit" style="white-space:nowrap;">Notify me</button>
+    <form class="email-form" id="waitlist-form" novalidate>
+      <label class="visually-hidden" for="waitlist-email">Email address</label>
+      <input id="waitlist-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+      <input class="visually-hidden" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn-primary" type="submit">Notify me</button>
     </form>
-    <p class="form-note">No spam. Just one email when KneeRun is ready.</p>
+    <p class="form-note" id="waitlist-status" role="status" aria-live="polite">No spam. Just one email when KneeRun is ready.</p>
   </div>
 </section>
 
@@ -366,6 +396,58 @@
     <span>kneerun.com</span>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var form = document.getElementById('waitlist-form');
+    var status = document.getElementById('waitlist-status');
+    var input = document.getElementById('waitlist-email');
+    var button = form.querySelector('button');
+
+    function setStatus(message, state) {
+      status.textContent = message;
+      status.classList.remove('is-error', 'is-success');
+      if (state) status.classList.add('is-' + state);
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      if (!input.checkValidity()) {
+        setStatus('Please enter a valid email address.', 'error');
+        input.focus();
+        return;
+      }
+
+      button.disabled = true;
+      var original = button.textContent;
+      button.textContent = 'Adding…';
+
+      fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email: input.value, company: form.company.value })
+      })
+        .then(function (res) { return res.json().catch(function () { return {}; }).then(function (b) { return { ok: res.ok, body: b }; }); })
+        .then(function (r) {
+          if (r.ok && r.body.ok) {
+            form.reset();
+            button.textContent = "You're on the list";
+            setStatus("Thanks — we'll email you the moment early access opens.", 'success');
+          } else {
+            button.disabled = false;
+            button.textContent = original;
+            setStatus('Something went wrong. Please try again.', 'error');
+          }
+        })
+        .catch(function () {
+          button.disabled = false;
+          button.textContent = original;
+          setStatus('Network error. Please try again.', 'error');
+        });
+    });
+  })();
+</script>
 
 </body>
 </html>

@@ -8,26 +8,32 @@ See [`PROJECT_BRIEF.md`](PROJECT_BRIEF.md) for the full brand, positioning, and 
 
 ## What's in this repo
 
-Right now this is the **marketing site** only — a self-contained waitlist landing page.
+The **marketing site** — a waitlist landing page deployed on Cloudflare Pages.
 
-- `index.html` — the landing page. No build step, no dependencies. Fonts load from Google Fonts; everything else is inline.
+- `index.html` — the landing page. Static, no build step. Fonts load from Google Fonts; everything else is inline.
+- `favicon.svg`, `og.png` — the pulse mark and the social-share card.
+- `functions/api/waitlist.js` — a Cloudflare Pages Function that captures signups into D1.
+- `schema.sql` — the `signups` table schema for the `kneerun-waitlist` D1 database.
+- `wrangler.jsonc` — Pages config and the D1 binding (`DB`).
 
 ## Running it locally
 
-Open `index.html` directly in a browser, or serve the folder:
+The landing page renders on its own if you open `index.html`, but the waitlist form needs the Function and D1. To run the whole thing:
 
 ```bash
-python3 -m http.server 8000
+npx wrangler d1 execute kneerun-waitlist --local --file=schema.sql   # once, seeds the local DB
+npx wrangler pages dev .
 ```
 
-Then visit http://localhost:8000.
+Then visit the URL wrangler prints (defaults to http://localhost:8788).
 
 ## Deploying
 
-`index.html` is a static file and works as-is on any static host (Cloudflare Pages, Netlify, Vercel, GitHub Pages). Point the host at this repo's root; no build command is needed.
+Deployment is **Git-connected**: the `tomketch10/kneerun` repo is linked to a Cloudflare Pages project, so pushing to `main` triggers a deploy. There is no build command — Pages serves the repo root and compiles `functions/`.
+
+The `DB` D1 binding is configured in `wrangler.jsonc`; confirm it's also present under the Pages project's **Settings → Functions → D1 bindings** in the Cloudflare dashboard.
 
 ## Not done yet
 
-- The waitlist email form is front-end only — it needs a real backend to capture emails.
 - Trademark clearance for "KneeRun" has only been checked via general web search.
 - No mobile app build has started; the brief plus this landing page are the starting point.

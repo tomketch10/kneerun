@@ -1,0 +1,116 @@
+{
+  "id": "walk-to-run-1",
+  "name": "Walk-to-run",
+  "phase": "run",
+  "summary": "An 8-week return-to-run progression. It starts with 1-minute runs cushioned by walking, and stretches them week by week until the walk breaks disappear and you're running 30 minutes straight.",
+  "legend": {
+    "run": "Run at an easy, steady jogging pace.",
+    "walk": "A relaxed recovery walk."
+  },
+  "defaults": {
+    "warmupWalkMin": 5,
+    "cooldownWalkMin": 5,
+    "warmupOptional": true
+  },
+  "rules": [
+    { "id": "bookend-walk", "text": "Top and tail each outing with 5 minutes of walking to warm up and cool down (optional)." },
+    { "id": "symptom-led", "text": "Let symptoms decide. If a session felt hard or the knee grumbles, repeat it or drop back a session — never force the next step." },
+    { "id": "frequency", "text": "Run 4 to 6 times per week, no more.", "minPerWeek": 4, "maxPerWeek": 6 },
+    { "id": "cross-train", "text": "Fill the gaps with lower-impact cross-training (cycling, aqua-jogging) to build fitness without pounding the joint." }
+  ],
+  "adaptations": [
+    { "id": "repeat", "label": "Repeat this session", "effect": "stay" },
+    { "id": "step-back", "label": "Drop back a session", "effect": "previous" },
+    { "id": "advance", "label": "Move on", "effect": "next" }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "focus": "Foundation. Teach the knee to load and unload.",
+      "sessions": [
+        { "reps": 3, "runMin": 1, "walkMin": 1, "warmupWalkMin": 5, "cooldownWalkMin": 5 },
+        { "reps": 4, "runMin": 1, "walkMin": 1 },
+        { "reps": 5, "runMin": 1, "walkMin": 1 },
+        { "reps": 6, "runMin": 1, "walkMin": 1 },
+        { "reps": 7, "runMin": 1, "walkMin": 1 }
+      ]
+    },
+    {
+      "week": 2,
+      "focus": "Add reps. More short runs at the same easy pace.",
+      "sessions": [
+        { "reps": 8, "runMin": 1, "walkMin": 1 },
+        { "reps": 9, "runMin": 1, "walkMin": 1 },
+        { "reps": 10, "runMin": 1, "walkMin": 1 },
+        { "reps": 11, "runMin": 1, "walkMin": 1 },
+        { "reps": 12, "runMin": 1, "walkMin": 1 }
+      ]
+    },
+    {
+      "week": 3,
+      "focus": "First stretch. Runs grow from 1 to 2 minutes.",
+      "sessions": [
+        { "reps": 13, "runMin": 1, "walkMin": 1 },
+        { "reps": 14, "runMin": 1, "walkMin": 1 },
+        { "reps": 15, "runMin": 1, "walkMin": 1 },
+        { "reps": 3, "runMin": 2, "walkMin": 1 },
+        { "reps": 4, "runMin": 2, "walkMin": 1 }
+      ]
+    },
+    {
+      "week": 4,
+      "focus": "Build volume on 2-minute runs.",
+      "sessions": [
+        { "reps": 5, "runMin": 2, "walkMin": 1 },
+        { "reps": 6, "runMin": 2, "walkMin": 1 },
+        { "reps": 7, "runMin": 2, "walkMin": 1 },
+        { "reps": 8, "runMin": 2, "walkMin": 1 },
+        { "reps": 9, "runMin": 2, "walkMin": 1 }
+      ]
+    },
+    {
+      "week": 5,
+      "focus": "Step up to 3-minute runs.",
+      "sessions": [
+        { "reps": 10, "runMin": 2, "walkMin": 1 },
+        { "reps": 3, "runMin": 3, "walkMin": 1 },
+        { "reps": 4, "runMin": 3, "walkMin": 1 },
+        { "reps": 5, "runMin": 3, "walkMin": 1 },
+        { "reps": 6, "runMin": 3, "walkMin": 1 }
+      ]
+    },
+    {
+      "week": 6,
+      "focus": "Longer efforts. Runs grow from 3 to 4 minutes.",
+      "sessions": [
+        { "reps": 7, "runMin": 3, "walkMin": 1 },
+        { "reps": 8, "runMin": 3, "walkMin": 1 },
+        { "reps": 2, "runMin": 4, "walkMin": 1 },
+        { "reps": 3, "runMin": 4, "walkMin": 1 },
+        { "reps": 4, "runMin": 4, "walkMin": 1 }
+      ]
+    },
+    {
+      "week": 7,
+      "focus": "The big jump. Up to 9-minute runs.",
+      "sessions": [
+        { "reps": 5, "runMin": 4, "walkMin": 1 },
+        { "reps": 6, "runMin": 4, "walkMin": 1 },
+        { "reps": 1, "runMin": 9, "walkMin": 1 },
+        { "reps": 2, "runMin": 9, "walkMin": 1 },
+        { "reps": 3, "runMin": 9, "walkMin": 1 }
+      ]
+    },
+    {
+      "week": 8,
+      "focus": "Bridge to continuous. Finish running 30 minutes straight.",
+      "sessions": [
+        { "reps": 1, "runMin": 14, "walkMin": 1 },
+        { "reps": 2, "runMin": 14, "walkMin": 1 },
+        { "reps": 1, "runMin": 20, "walkMin": 0 },
+        { "reps": 1, "runMin": 25, "walkMin": 0 },
+        { "reps": 1, "runMin": 30, "walkMin": 0 }
+      ]
+    }
+  ]
+}

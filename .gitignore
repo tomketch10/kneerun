@@ -12,3 +12,6 @@
 
 # Cloudflare / wrangler local state
 .wrangler/
+
+# Pages build output
+dist/

@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KneeRun — Your path back to running after ACL surgery</title>
-<meta name="description" content="KneeRun helps you get genuinely back to running after ACL reconstruction — not just off crutches. A plan built for the return-to-run phase, where reinjury risk is highest.">
+<title>KneeRun: your path back to running after ACL surgery</title>
+<meta name="description" content="Most rehab apps helped me get off crutches. I built KneeRun to get you back to running post-ACL surgery, through the return-to-run phase where reinjury risk is highest.">
 <link rel="canonical" href="https://kneerun.com/">
-<meta name="theme-color" content="#14140F">
+<meta name="theme-color" content="#F6F4EE">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kneerun.com/">
-<meta property="og:title" content="KneeRun — Your path back to running after ACL surgery">
-<meta property="og:description" content="Most rehab apps get you off crutches. KneeRun gets you back on the road, with a plan built for the return to running after ACL surgery.">
+<meta property="og:title" content="KneeRun: your path back to running after ACL surgery">
+<meta property="og:description" content="Most rehab apps helped me get off crutches. I built KneeRun to get you back to running post-ACL surgery.">
 <meta property="og:image" content="https://kneerun.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="KneeRun — Your path back to running after ACL surgery">
-<meta name="twitter:description" content="Most rehab apps get you off crutches. KneeRun gets you back on the road, with a plan built for the return to running after ACL surgery.">
+<meta name="twitter:title" content="KneeRun: your path back to running after ACL surgery">
+<meta name="twitter:description" content="Most rehab apps helped me get off crutches. I built KneeRun to get you back to running post-ACL surgery.">
 <meta name="twitter:image" content="https://kneerun.com/og.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,14 +27,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #14140F;
-    --bg-alt: #1B1B15;
-    --ink: #F1EFE8;
-    --muted: #9A988D;
+    --bg: #F6F4EE;
+    --bg-alt: #FFFFFF;
+    --ink: #14140F;
+    --muted: #6B6960;
     --accent: #82FF80;
+    --accent-text: #2C7A2A;
     --accent-dim: #4E8A4C;
-    --line: rgba(241,239,232,0.12);
-    --line-strong: rgba(241,239,232,0.22);
+    --line: rgba(20,20,15,0.10);
+    --line-strong: rgba(20,20,15,0.18);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -68,7 +69,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: rgba(20,20,15,0.85);
+    background: rgba(246,244,238,0.85);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line);
   }
@@ -102,7 +103,7 @@
     font-weight: 500;
     white-space: nowrap;
   }
-  .nav-cta:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-cta:hover { border-color: var(--accent-text); color: var(--accent-text); }
 
   /* ---------- Hero ---------- */
   .hero {
@@ -117,7 +118,7 @@
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text);
     margin-bottom: 20px;
     display: block;
   }
@@ -207,8 +208,8 @@
   /* ---------- Story ---------- */
   .story {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 56px;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
     align-items: center;
   }
   .story blockquote {
@@ -218,20 +219,42 @@
     line-height: 1.4;
     margin-bottom: 20px;
   }
-  .story cite {
-    font-style: normal;
-    font-size: 14px;
+  .story .bio {
+    font-size: 14.5px;
     color: var(--muted);
-    display: block;
+    line-height: 1.6;
+    max-width: 48ch;
+    margin-bottom: 16px;
   }
-  .story-graphic {
-    background: var(--bg-alt);
+  .story .bio a {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .story .bio a:hover { text-decoration: none; }
+  .story-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent-text);
+  }
+  .story-link:hover { text-decoration: underline; }
+  .story-link svg { width: 17px; height: 17px; fill: currentColor; }
+  .story-photo {
     border: 1px solid var(--line);
     border-radius: 20px;
-    height: 220px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    max-width: 260px;
+  }
+  .story-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    display: block;
   }
 
   /* ---------- CTA band ---------- */
@@ -240,37 +263,30 @@
   }
   .cta-band h2 { font-size: 36px; margin-bottom: 16px; }
   .cta-band p { color: var(--muted); margin-bottom: 32px; }
-  .email-form {
+  .store-buttons {
     display: flex;
-    gap: 10px;
-    max-width: 420px;
-    margin: 0 auto;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
-  .email-form input {
-    flex: 1;
-    background: var(--bg-alt);
-    border: 1px solid var(--line-strong);
-    border-radius: 100px;
-    padding: 13px 18px;
-    color: var(--ink);
-    font-size: 14px;
-    font-family: inherit;
+  .store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ink);
+    color: #F1EFE8;
+    padding: 12px 22px;
+    border-radius: 14px;
+    min-width: 210px;
   }
-  .email-form input:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-  .email-form input::placeholder { color: var(--muted); }
-  .form-note { font-size: 12.5px; color: var(--muted); margin-top: 14px; }
-  .form-note.is-error { color: #ff9d9d; }
-  .form-note.is-success { color: var(--accent); }
-  .btn-primary:disabled { opacity: 0.6; cursor: default; }
-  .visually-hidden {
-    position: absolute;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden; clip: rect(0 0 0 0);
-    white-space: nowrap; border: 0;
+  .store-btn:hover { background: #000; }
+  .store-btn svg { width: 26px; height: 26px; flex-shrink: 0; fill: #F1EFE8; }
+  .store-btn-text { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+  .store-btn-text small { font-size: 11px; opacity: 0.85; }
+  .store-btn-text strong {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
   }
 
   /* ---------- Footer ---------- */
@@ -293,7 +309,6 @@
     .hero-mark { order: -1; height: 220px; }
     .phases { grid-template-columns: 1fr; }
     .story { grid-template-columns: 1fr; }
-    .email-form { flex-direction: column; }
   }
 </style>
 </head>
@@ -310,26 +325,26 @@
     </div>
     <div class="nav-links">
       <a href="#phases">How it works</a>
-      <a href="#story">Why we built it</a>
+      <a href="/program">Run program</a>
     </div>
-    <a class="nav-cta" href="#get-access">Get early access</a>
+    <a class="nav-cta" href="#get-access">Download</a>
   </div>
 </nav>
 
 <header class="hero wrap">
   <div>
     <span class="eyebrow">ACL recovery, built for runners</span>
-    <h1>Run again.<br>Not just recover.</h1>
-    <p class="lede">Most rehab apps get you off crutches. KneeRun gets you back on the road — with a plan built specifically for the return to running after ACL surgery.</p>
+    <h1>Run again.<br>Don't just recover.</h1>
+    <p class="lede">Most rehab apps helped me get off crutches. I built KneeRun to get you back to running post-ACL surgery.</p>
     <div class="hero-ctas">
-      <a class="btn-primary" href="#get-access">Get early access</a>
+      <a class="btn-primary" href="#get-access">Download</a>
       <a class="btn-ghost" href="#phases">See how it works ↓</a>
     </div>
   </div>
   <div class="hero-mark">
     <svg width="240" height="140" viewBox="0 0 240 140" aria-hidden="true">
       <polyline class="pulse-path" points="10,90 40,90 55,40 70,120 85,60 100,90 130,90 155,55 165,90 230,90"
-        fill="none" stroke="#82FF80" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="#2C7A2A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 </header>
@@ -339,23 +354,23 @@
     <div class="section-head">
       <span class="eyebrow">The framework</span>
       <h2>Three phases, one path back</h2>
-      <p>Running too early is the single biggest risk to a full recovery. KneeRun paces you through the phases that matter, in the order your knee actually needs them.</p>
+      <p>Running too early is the biggest risk to a full recovery. I built KneeRun to pace you through the phases in the order your knee actually needs them.</p>
     </div>
     <div class="phases">
       <div class="phase">
-        <div class="num">01 — Recover</div>
+        <div class="num">01 · Recover</div>
         <h3>Rebuild the foundation</h3>
-        <p>Range of motion, swelling control, and quad activation — tracked daily so you know you're actually ready for what's next, not just guessing.</p>
+        <p>Range of motion, swelling control, and quad activation, tracked daily so you know you're actually ready for what's next, not just guessing.</p>
       </div>
       <div class="phase">
-        <div class="num">02 — Rebuild</div>
+        <div class="num">02 · Rebuild</div>
         <h3>Earn your strength back</h3>
         <p>Structured strength and single-leg work, benchmarked against real return-to-run criteria like quad symmetry, not an arbitrary calendar date.</p>
       </div>
       <div class="phase">
-        <div class="num">03 — Run</div>
+        <div class="num">03 · Run</div>
         <h3>Return with confidence</h3>
-        <p>A gradual run progression that respects your graft, your data, and your nerves — built to stop you going too far, too fast.</p>
+        <p>A gradual run progression that respects your graft, your data, and your nerves. Built to stop you going too far, too fast.</p>
       </div>
     </div>
   </div>
@@ -363,30 +378,34 @@
 
 <section id="story">
   <div class="wrap story">
-    <div class="story-graphic">
-      <svg width="180" height="110" viewBox="0 0 180 110" aria-hidden="true">
-        <polyline points="8,70 30,70 42,30 54,90 66,45 78,70 100,70 118,40 130,70 172,70"
-          fill="none" stroke="#82FF80" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
-      </svg>
+    <div class="story-photo">
+      <img src="/assets/thomas-medal.jpg" width="665" height="1182" alt="Thomas smiling with his half marathon finisher medal">
     </div>
     <div>
-      <blockquote>"There's plenty of advice on getting off crutches. There's almost nothing on actually getting back to running."</blockquote>
-      <cite>Why we're building KneeRun — from someone currently living the recovery, not just designing for it.</cite>
+      <blockquote>"When I did my ACL, there was endless advice on getting off crutches, and almost nothing on getting back to running."</blockquote>
+      <p class="bio">Co-founder of apps such as <a href="https://www.sutori.com" target="_blank" rel="noopener">Sutori</a> and <a href="https://curvo.eu" target="_blank" rel="noopener">Curvo</a>. I built KneeRun whilst recovering from my own ACL and meniscus surgery. It helped me get back to running, and I'm sure it'll do the same for you.</p>
+      <a class="story-link" href="https://www.linkedin.com/in/thomas-ketchell/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        Thomas Ketchell on LinkedIn
+      </a>
     </div>
   </div>
 </section>
 
 <section id="get-access" class="cta-band">
   <div class="wrap">
-    <h2>Be first to run with it</h2>
-    <p>We're building KneeRun now. Leave your email and we'll let you know the moment early access opens.</p>
-    <form class="email-form" id="waitlist-form" novalidate>
-      <label class="visually-hidden" for="waitlist-email">Email address</label>
-      <input id="waitlist-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
-      <input class="visually-hidden" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn-primary" type="submit">Notify me</button>
-    </form>
-    <p class="form-note" id="waitlist-status" role="status" aria-live="polite">No spam. Just one email when KneeRun is ready.</p>
+    <h2>Get KneeRun</h2>
+    <p>Available on the App Store and Google Play.</p>
+    <div class="store-buttons">
+      <a class="store-btn" href="#" aria-label="Download KneeRun on the App Store">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        <span class="store-btn-text"><small>Download on the</small><strong>App Store</strong></span>
+      </a>
+      <a class="store-btn" href="#" aria-label="Get KneeRun on Google Play">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5v17a.5.5 0 0 0 .77.42l13-8.5a.5.5 0 0 0 0-.84l-13-8.5A.5.5 0 0 0 4 3.5z"/></svg>
+        <span class="store-btn-text"><small>Get it on</small><strong>Google Play</strong></span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -396,58 +415,6 @@
     <span>kneerun.com</span>
   </div>
 </footer>
-
-<script>
-  (function () {
-    var form = document.getElementById('waitlist-form');
-    var status = document.getElementById('waitlist-status');
-    var input = document.getElementById('waitlist-email');
-    var button = form.querySelector('button');
-
-    function setStatus(message, state) {
-      status.textContent = message;
-      status.classList.remove('is-error', 'is-success');
-      if (state) status.classList.add('is-' + state);
-    }
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      if (!input.checkValidity()) {
-        setStatus('Please enter a valid email address.', 'error');
-        input.focus();
-        return;
-      }
-
-      button.disabled = true;
-      var original = button.textContent;
-      button.textContent = 'Adding…';
-
-      fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email: input.value, company: form.company.value })
-      })
-        .then(function (res) { return res.json().catch(function () { return {}; }).then(function (b) { return { ok: res.ok, body: b }; }); })
-        .then(function (r) {
-          if (r.ok && r.body.ok) {
-            form.reset();
-            button.textContent = "You're on the list";
-            setStatus("Thanks — we'll email you the moment early access opens.", 'success');
-          } else {
-            button.disabled = false;
-            button.textContent = original;
-            setStatus('Something went wrong. Please try again.', 'error');
-          }
-        })
-        .catch(function () {
-          button.disabled = false;
-          button.textContent = original;
-          setStatus('Network error. Please try again.', 'error');
-        });
-    });
-  })();
-</script>
 
 </body>
 </html>

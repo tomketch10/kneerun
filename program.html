@@ -101,7 +101,7 @@
   .nav-cta:hover { border-color: var(--accent-text); color: var(--accent-text); }
 
   /* ---------- Intro ---------- */
-  .intro { padding: 72px 0 8px; }
+  .intro { padding: 72px 32px 8px; }
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
@@ -115,7 +115,7 @@
   .intro p.lede { font-size: 18px; color: var(--muted); max-width: 60ch; }
 
   /* ---------- Explainer ---------- */
-  section.body { padding: 24px 0 40px; }
+  section.body { padding: 24px 32px 40px; }
   .how {
     font-size: 19px;
     color: var(--ink);
@@ -200,9 +200,18 @@
   }
 
   @media (max-width: 760px) {
-    .nav-links { display: none; }
+    nav .wrap { padding: 0 20px; }
+    .nav-links { gap: 20px; }
+    .nav-only-wide { display: none; }
+    .nav-cta { padding: 9px 16px; }
+    .intro { padding-top: 48px; }
     .intro h1 { font-size: 32px; }
-    .tl-item { grid-template-columns: 1fr; gap: 6px; }
+    section.body { padding-top: 8px; }
+    .how { font-size: 17px; margin-top: 20px; }
+    .timeline { margin: 28px 0; }
+    .tl-item { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
+    .app-cta { margin: 36px 0; padding: 32px 24px; }
+    .rules-block { margin: 36px 0; }
   }
 </style>
 </head>
@@ -219,7 +228,7 @@
     </a>
     <div class="nav-links">
       <a href="/#phases">How it works</a>
-      <a href="/program" class="active">Run program</a>
+      <a href="/program" class="active nav-only-wide">Run program</a>
     </div>
     <a class="nav-cta" href="/#get-access">Download</a>
   </div>

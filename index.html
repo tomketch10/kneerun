@@ -107,7 +107,7 @@
 
   /* ---------- Hero ---------- */
   .hero {
-    padding: 96px 0 80px;
+    padding: 96px 32px 80px;
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 48px;
@@ -303,12 +303,16 @@
   }
 
   @media (max-width: 860px) {
-    .nav-links { display: none; }
+    nav .wrap { padding: 0 20px; }
+    .nav-links { gap: 20px; }
+    .nav-only-wide { display: none; }
+    .nav-cta { padding: 9px 16px; }
     .hero { grid-template-columns: 1fr; padding-top: 56px; }
     .hero h1 { font-size: 38px; }
     .hero-mark { order: -1; height: 220px; }
     .phases { grid-template-columns: 1fr; }
-    .story { grid-template-columns: 1fr; }
+    .story { grid-template-columns: 1fr; gap: 28px; }
+    .story-photo { max-width: 100%; }
   }
 </style>
 </head>
@@ -324,7 +328,7 @@
       KneeRun
     </div>
     <div class="nav-links">
-      <a href="#phases">How it works</a>
+      <a href="#phases" class="nav-only-wide">How it works</a>
       <a href="/program">Run program</a>
     </div>
     <a class="nav-cta" href="#get-access">Download</a>

@@ -1,0 +1,19 @@
+{
+  "name": "kneerun",
+  "version": "1.0.0",
+  "description": "Your path back to running after ACL surgery.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build:blog": "node scripts/build-blog.mjs",
+    "deploy": "node scripts/deploy.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomketch10/kneerun.git"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "marked": "^15.0.12"
+  }
+}

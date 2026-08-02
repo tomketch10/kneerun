@@ -15,3 +15,9 @@
 
 # Pages build output
 dist/
+
+# Generated blog HTML (source lives in posts/, built by scripts/build-blog.mjs)
+blog/
+
+# Node
+node_modules/

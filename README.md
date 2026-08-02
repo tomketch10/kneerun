@@ -14,34 +14,35 @@ See [`PROJECT_BRIEF.md`](PROJECT_BRIEF.md) for the full brand, positioning, and 
   - `favicon.svg`, `og.png` — the pulse mark and the social-share card.
   - `assets/` — images used by the site.
   - `wrangler.jsonc` — Cloudflare Pages config for the `kneerun` project.
+- **The blog** ([`posts/`](posts/)) — one Markdown file per post; a small script renders them to static HTML. See [`posts/README.md`](posts/README.md).
 - **The mobile app** ([`app/`](app/)) — the Expo / React Native app for the Run phase. See [`docs/app-plan.md`](docs/app-plan.md).
 - **Docs** ([`docs/`](docs/)) — the run program, app plan, and related notes.
 
-The site is plain static HTML with no build step. Fonts load from Google Fonts; everything else is inline.
+The landing pages (`index.html`, `program.html`) are plain static HTML with no build step. The blog is the one exception: posts are written in Markdown under `posts/` and built to `blog/` (gitignored) by `scripts/build-blog.mjs`. Fonts load from Google Fonts; everything else is inline.
 
 ## Running the site locally
 
-Open `index.html` directly in a browser, or serve the folder:
+Build the blog, then serve the folder (clean URLs, same as production):
 
 ```bash
+npm install
+npm run build:blog
 npx serve .
 ```
+
+Open `index.html` directly in a browser for the landing pages, but the blog needs the build step first.
 
 ## Deploying the site
 
 Hosted on **Cloudflare Pages** (project `kneerun`, on the `thomas@curvo.eu` personal account), deployed by **direct upload** with wrangler — there is no Git integration.
 
-Deploy assembles the static files into `dist/` (gitignored) and uploads that, so the rest of the monorepo (`app/`, `docs/`) never ships:
+One command builds the blog, assembles the static files into `dist/` (gitignored), and uploads that — so the rest of the monorepo (`app/`, `docs/`) never ships and the blog is always freshly built:
 
 ```bash
-rm -rf dist && mkdir -p dist/assets
-cp index.html program.html favicon.svg og.png dist/
-cp assets/* dist/assets/
-CLOUDFLARE_ACCOUNT_ID=a16ca00b38bc77d4163d3b362f5c8a50 \
-  npx wrangler pages deploy dist --project-name kneerun --branch main
+npm run deploy
 ```
 
-Live at **https://kneerun.pages.dev**.
+That runs [`scripts/deploy.mjs`](scripts/deploy.mjs). Live at **https://kneerun.pages.dev**.
 
 ### Custom domain (kneerun.com)
 

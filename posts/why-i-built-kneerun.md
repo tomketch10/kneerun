@@ -10,9 +10,9 @@ What nobody prepared me for was the gap that comes next.
 
 ## The advice runs out exactly when you need it most
 
-There's no shortage of guidance for the early weeks. Range of motion, swelling, quad activation — your physio has a plan and you follow it. But somewhere around the point where you can walk normally and the surgeon says "you're doing great," the structured guidance thins out.
+There's no shortage of guidance for the early weeks. Range of motion, swelling, quad activation. Your physio has a plan and you follow it. But somewhere around the point where you can walk normally and the surgeon says "you're doing great," the structured guidance thins out.
 
-And that's the moment I most wanted a map. Because the next thing I wanted to do was run, and running is where the risk of re-injury is highest.
+And that's the moment I most wanted a map. Because the next thing I wanted to do was run, and running is where the risk of reinjury is highest.
 
 > Running too early, too fast, is the single biggest way people set themselves back after ACL surgery.
 
@@ -24,10 +24,10 @@ So I did what a lot of people do: I guessed. I ran a bit, felt fine, ran more, a
 
 ## What KneeRun is
 
-KneeRun is the thing I wish I'd had — a structured return-to-run progression that paces you through three phases:
+KneeRun is the thing I wish I'd had: a structured return-to-run progression that paces you through three phases.
 
-- **Recover** — range of motion, swelling, quad activation, tracked daily.
-- **Rebuild** — single-leg strength benchmarked against real return-to-run criteria.
-- **Run** — a gradual walk-to-run progression that grows only as fast as your knee can handle.
+- Recover, where you track range of motion, swelling and quad activation daily.
+- Rebuild, where you build single-leg strength against real return-to-run criteria.
+- Run, a gradual walk-to-run progression that grows only as fast as your knee can handle.
 
 It's built by someone going through this right now, not designed at a distance. If that's where you are too, I hope it helps.

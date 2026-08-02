@@ -203,7 +203,7 @@ ${BASE_CSS}
       KneeRun
     </a>
     <div class="nav-links">
-      <a href="/#phases">How it works</a>
+      <a href="/#phases" class="nav-only-wide">How it works</a>
       <a href="/program">Run program</a>
       <a href="/blog" class="active">Blog</a>
     </div>
@@ -415,6 +415,7 @@ const BASE_CSS = `  :root {
   @media (max-width: 760px) {
     nav .wrap { padding: 0 20px; }
     .nav-links { gap: 18px; }
+    .nav-only-wide { display: none; }
     .nav-cta { padding: 9px 16px; }
     .intro { padding-top: 48px; }
     .intro h1 { font-size: 32px; }
@@ -422,6 +423,10 @@ const BASE_CSS = `  :root {
     article.body h2 { font-size: 22px; }
     .post-item { grid-template-columns: 1fr; gap: 6px; padding: 22px 0; }
     .app-cta { margin: 40px 0 8px; padding: 32px 24px; }
+  }
+
+  @media (max-width: 520px) {
+    .nav-links { display: none; }
   }`;
 
 build().catch((error) => {

@@ -2,15 +2,16 @@ import { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import {
-  currentRef,
-  getProgram,
-  isDone,
-  prescription,
-  runningMinutes,
-} from '@/program/program';
+import { currentRef, getProgram, isDone, prescription, runningMinutes } from '@/program/program';
 import { useLogs } from '@/program/storage';
-import { colors, radius, space } from '@/theme';
+import type { Symptom } from '@/program/types';
+import { colors, fonts, radius, space } from '@/theme';
+
+const SYMPTOM_LEGEND: { key: Symptom; label: string }[] = [
+  { key: 'good', label: 'Good' },
+  { key: 'niggle', label: 'Niggle' },
+  { key: 'sore', label: 'Sore' },
+];
 
 export default function PlanScreen() {
   const { logs, loading, reset } = useLogs();
@@ -24,6 +25,25 @@ export default function PlanScreen() {
         <Text style={styles.title}>{program.name}</Text>
         <Text style={styles.summary}>{program.summary}</Text>
 
+        {logs.length > 0 && (
+          <View style={styles.trend}>
+            <Text style={styles.trendTitle}>How the knee's felt</Text>
+            <View style={styles.trendDots}>
+              {logs.map((log, i) => (
+                <View key={i} style={[styles.trendDot, { backgroundColor: colors.symptom[log.symptom] }]} />
+              ))}
+            </View>
+            <View style={styles.legend}>
+              {SYMPTOM_LEGEND.map((s) => (
+                <View key={s.key} style={styles.legendItem}>
+                  <View style={[styles.legendDot, { backgroundColor: colors.symptom[s.key] }]} />
+                  <Text style={styles.legendText}>{s.label}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
+
         {program.weeks.map((week) => (
           <View key={week.week} style={styles.week}>
             <View style={styles.weekHead}>
@@ -35,9 +55,7 @@ export default function PlanScreen() {
               const done = isDone(logs, ref);
               const isCurrent = !loading && current?.week === ref.week && current?.session === ref.session;
               return (
-                <View
-                  key={index}
-                  style={[styles.session, isCurrent && styles.sessionCurrent]}>
+                <View key={index} style={[styles.session, isCurrent && styles.sessionCurrent]}>
                   <View style={[styles.dot, done && styles.dotDone, isCurrent && styles.dotCurrent]}>
                     {done && <Text style={styles.tick}>✓</Text>}
                   </View>
@@ -65,9 +83,26 @@ export default function PlanScreen() {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
   scroll: { padding: space(6), paddingTop: space(8), paddingBottom: space(12) },
-  eyebrow: { color: colors.accentText, fontSize: 12, letterSpacing: 1, fontWeight: '600', marginBottom: space(2) },
-  title: { color: colors.ink, fontSize: 28, fontWeight: '700', marginBottom: space(3) },
-  summary: { color: colors.muted, fontSize: 15, lineHeight: 22, marginBottom: space(8) },
+  eyebrow: { color: colors.accentText, fontFamily: fonts.mono, fontSize: 12, letterSpacing: 1, marginBottom: space(2) },
+  title: { color: colors.ink, fontFamily: fonts.displayBold, fontSize: 28, marginBottom: space(3) },
+  summary: { color: colors.muted, fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginBottom: space(7) },
+
+  trend: {
+    backgroundColor: colors.bgAlt,
+    borderColor: colors.line,
+    borderWidth: 1,
+    borderRadius: radius.lg,
+    padding: space(5),
+    marginBottom: space(8),
+  },
+  trendTitle: { color: colors.ink, fontFamily: fonts.displaySemi, fontSize: 16, marginBottom: space(4) },
+  trendDots: { flexDirection: 'row', flexWrap: 'wrap', gap: space(2), marginBottom: space(4) },
+  trendDot: { width: 11, height: 11, borderRadius: 6 },
+  legend: { flexDirection: 'row', gap: space(5) },
+  legendItem: { flexDirection: 'row', alignItems: 'center', gap: space(2) },
+  legendDot: { width: 9, height: 9, borderRadius: 5 },
+  legendText: { color: colors.muted, fontFamily: fonts.mono, fontSize: 11 },
+
   week: {
     borderColor: colors.line,
     borderWidth: 1,
@@ -77,8 +112,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bgAlt,
   },
   weekHead: { padding: space(4), borderBottomColor: colors.line, borderBottomWidth: 1 },
-  weekNum: { color: colors.accentText, fontSize: 11, letterSpacing: 1, fontWeight: '600', marginBottom: space(1) },
-  weekFocus: { color: colors.ink, fontSize: 15, fontWeight: '600' },
+  weekNum: { color: colors.accentText, fontFamily: fonts.mono, fontSize: 11, letterSpacing: 1, marginBottom: space(1) },
+  weekFocus: { color: colors.ink, fontFamily: fonts.bodySemi, fontSize: 15 },
   session: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -101,10 +136,10 @@ const styles = StyleSheet.create({
   dotCurrent: { borderColor: colors.accentText },
   tick: { color: colors.onAccent, fontSize: 12, fontWeight: '900' },
   sessionBody: { flex: 1 },
-  rx: { color: colors.ink, fontSize: 15, fontWeight: '500' },
+  rx: { color: colors.ink, fontFamily: fonts.bodyMedium, fontSize: 15 },
   rxDone: { color: colors.muted },
-  meta: { color: colors.muted, fontSize: 12, marginTop: space(1) },
-  nowTag: { color: colors.accentText, fontSize: 11, fontWeight: '700', letterSpacing: 1 },
+  meta: { color: colors.muted, fontFamily: fonts.mono, fontSize: 12, marginTop: space(1) },
+  nowTag: { color: colors.accentText, fontFamily: fonts.mono, fontSize: 11, letterSpacing: 1 },
   reset: { alignItems: 'center', paddingVertical: space(5), marginTop: space(2) },
-  resetText: { color: colors.danger, fontSize: 14 },
+  resetText: { color: colors.danger, fontFamily: fonts.body, fontSize: 14 },
 });

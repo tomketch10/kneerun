@@ -15,14 +15,23 @@ const colors = {
   line: 'rgba(20,20,15,0.10)',
   lineStrong: 'rgba(20,20,15,0.18)',
   danger: '#C0392B',
+  // How the knee felt, for the symptom trend.
+  symptom: {
+    good: '#2C7A2A',
+    niggle: '#C98A00',
+    sore: '#C0392B',
+  },
 };
 
-const font = {
-  // System fonts for now; the brand faces (Bricolage Grotesque / IBM Plex)
-  // get wired up with expo-font in the polish milestone.
-  display: undefined as string | undefined,
-  body: undefined as string | undefined,
-  mono: undefined as string | undefined,
+// Brand faces, loaded via @expo-google-fonts in the root layout.
+// Display: Bricolage Grotesque. Body: IBM Plex Sans. Labels/counters: IBM Plex Mono.
+const fonts = {
+  displaySemi: 'BricolageGrotesque_600SemiBold',
+  displayBold: 'BricolageGrotesque_700Bold',
+  body: 'IBMPlexSans_400Regular',
+  bodyMedium: 'IBMPlexSans_500Medium',
+  bodySemi: 'IBMPlexSans_600SemiBold',
+  mono: 'IBMPlexMono_500Medium',
 };
 
 const radius = {
@@ -34,4 +43,4 @@ const radius = {
 
 const space = (n: number) => n * 4;
 
-export { colors, font, radius, space };
+export { colors, fonts, radius, space };

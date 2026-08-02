@@ -14,7 +14,7 @@ import {
 } from '@/program/program';
 import { useLogs } from '@/program/storage';
 import type { Adaptation, Symptom } from '@/program/types';
-import { colors, radius, space } from '@/theme';
+import { colors, fonts, radius, space } from '@/theme';
 
 const NUDGES = [
   "Small run today. Lace up, your knee's ready for this one.",
@@ -163,12 +163,12 @@ const styles = StyleSheet.create({
   scroll: { padding: space(6), paddingTop: space(8) },
   eyebrow: {
     color: colors.accentText,
+    fontFamily: fonts.mono,
     fontSize: 12,
     letterSpacing: 1,
-    fontWeight: '600',
     marginBottom: space(3),
   },
-  focus: { color: colors.ink, fontSize: 26, fontWeight: '700', lineHeight: 32, marginBottom: space(6) },
+  focus: { color: colors.ink, fontFamily: fonts.displayBold, fontSize: 26, lineHeight: 32, marginBottom: space(6) },
   card: {
     backgroundColor: colors.bgAlt,
     borderColor: colors.line,
@@ -177,20 +177,20 @@ const styles = StyleSheet.create({
     padding: space(6),
     marginBottom: space(6),
   },
-  rx: { color: colors.ink, fontSize: 22, fontWeight: '600', marginBottom: space(2) },
-  meta: { color: colors.muted, fontSize: 13 },
-  nudge: { color: colors.ink, fontSize: 16, lineHeight: 24, marginBottom: space(6) },
+  rx: { color: colors.ink, fontFamily: fonts.displaySemi, fontSize: 22, marginBottom: space(2) },
+  meta: { color: colors.muted, fontFamily: fonts.mono, fontSize: 13 },
+  nudge: { color: colors.ink, fontFamily: fonts.body, fontSize: 16, lineHeight: 24, marginBottom: space(6) },
   primary: {
     backgroundColor: colors.accent,
     borderRadius: radius.pill,
     paddingVertical: space(4),
     alignItems: 'center',
   },
-  primaryText: { color: colors.onAccent, fontSize: 16, fontWeight: '700' },
-  progressNote: { color: colors.muted, fontSize: 13, textAlign: 'center', marginTop: space(4) },
+  primaryText: { color: colors.onAccent, fontFamily: fonts.displaySemi, fontSize: 16 },
+  progressNote: { color: colors.muted, fontFamily: fonts.mono, fontSize: 12, textAlign: 'center', marginTop: space(4) },
   checkin: { marginTop: space(2) },
-  checkinTitle: { color: colors.ink, fontSize: 20, fontWeight: '700', marginBottom: space(2) },
-  checkinBody: { color: colors.muted, fontSize: 15, lineHeight: 22, marginBottom: space(6) },
+  checkinTitle: { color: colors.ink, fontFamily: fonts.displaySemi, fontSize: 20, marginBottom: space(2) },
+  checkinBody: { color: colors.muted, fontFamily: fonts.body, fontSize: 15, lineHeight: 22, marginBottom: space(6) },
   option: {
     backgroundColor: colors.bgAlt,
     borderColor: colors.line,
@@ -199,11 +199,11 @@ const styles = StyleSheet.create({
     padding: space(4),
     marginBottom: space(3),
   },
-  optionLabel: { color: colors.ink, fontSize: 16, fontWeight: '600' },
-  optionSub: { color: colors.muted, fontSize: 13, marginTop: space(1) },
+  optionLabel: { color: colors.ink, fontFamily: fonts.bodySemi, fontSize: 16 },
+  optionSub: { color: colors.muted, fontFamily: fonts.body, fontSize: 13, marginTop: space(1) },
   cancel: { alignItems: 'center', paddingVertical: space(4) },
-  cancelText: { color: colors.muted, fontSize: 14 },
-  muted: { color: colors.muted, fontSize: 15 },
-  done: { color: colors.ink, fontSize: 34, fontWeight: '700', marginBottom: space(4) },
-  lede: { color: colors.muted, fontSize: 16, lineHeight: 24 },
+  cancelText: { color: colors.muted, fontFamily: fonts.body, fontSize: 14 },
+  muted: { color: colors.muted, fontFamily: fonts.body, fontSize: 15 },
+  done: { color: colors.ink, fontFamily: fonts.displayBold, fontSize: 34, marginBottom: space(4) },
+  lede: { color: colors.muted, fontFamily: fonts.body, fontSize: 16, lineHeight: 24 },
 });

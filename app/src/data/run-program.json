@@ -14,7 +14,7 @@
   },
   "rules": [
     { "id": "bookend-walk", "text": "Top and tail each outing with 5 minutes of walking to warm up and cool down (optional)." },
-    { "id": "symptom-led", "text": "Let symptoms decide. If a session felt hard or the knee grumbles, repeat it or drop back a session — never force the next step." },
+    { "id": "symptom-led", "text": "Let symptoms decide. If a session felt hard or the knee grumbles, repeat it or drop back a session. Never force the next step." },
     { "id": "frequency", "text": "Run 4 to 6 times per week, no more.", "minPerWeek": 4, "maxPerWeek": 6 },
     { "id": "cross-train", "text": "Fill the gaps with lower-impact cross-training (cycling, aqua-jogging) to build fitness without pounding the joint." }
   ],

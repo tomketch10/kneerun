@@ -15,6 +15,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { Text } from 'react-native';
 
+import { Onboarding } from '@/components/welcome';
+import { configureNotifications } from '@/program/notifications';
+import { useProfile } from '@/program/profile';
 import { colors, fonts } from '@/theme';
 
 SplashScreen.preventAutoHideAsync();
@@ -32,12 +35,26 @@ export default function RootLayout() {
     IBMPlexSans_600SemiBold,
     IBMPlexMono_500Medium,
   });
+  const { profile, loading: profileLoading, setName } = useProfile();
 
   useEffect(() => {
-    if (loaded) SplashScreen.hideAsync();
-  }, [loaded]);
+    configureNotifications();
+  }, []);
 
-  if (!loaded) return null;
+  useEffect(() => {
+    if (loaded && !profileLoading) SplashScreen.hideAsync();
+  }, [loaded, profileLoading]);
+
+  if (!loaded || profileLoading) return null;
+
+  if (!profile.name) {
+    return (
+      <>
+        <StatusBar style="dark" />
+        <Onboarding onComplete={setName} />
+      </>
+    );
+  }
 
   return (
     <>

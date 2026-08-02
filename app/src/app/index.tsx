@@ -2,26 +2,29 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { fireMilestone } from '@/program/notifications';
 import {
   currentRef,
   getSession,
   getWeek,
   prescription,
+  refAfter,
   runningMinutes,
   suggestedAdaptation,
   totalMinutes,
   totalSessions,
 } from '@/program/program';
+import { useProfile } from '@/program/profile';
 import { useLogs } from '@/program/storage';
-import type { Adaptation, Symptom } from '@/program/types';
+import type { Adaptation, SessionRef, Symptom } from '@/program/types';
 import { colors, fonts, radius, space } from '@/theme';
 
-const NUDGES = [
-  "Small run today. Lace up, your knee's ready for this one.",
-  'Easy pace, that’s the whole game. Slow is exactly right.',
-  'You’ve done harder. Get out the door and let the plan do the rest.',
-  'One session closer to running free. Go get it.',
-  'Nothing to prove today. Just tick the box and come home.',
+const NUDGES: ((name: string) => string)[] = [
+  (name) => `Small run today, ${name}. Lace up, your knee's ready for this one.`,
+  () => 'Easy pace, that’s the whole game. Slow is exactly right.',
+  (name) => `You’ve done harder, ${name}. Get out the door and let the plan do the rest.`,
+  () => 'One session closer to running free. Go get it.',
+  () => 'Nothing to prove today. Just tick the box and come home.',
 ];
 
 const SYMPTOMS: { key: Symptom; label: string; sub: string }[] = [
@@ -36,13 +39,27 @@ const ADAPTATION_COPY: Record<Adaptation, { title: string; body: string }> = {
   'step-back': { title: 'Drop back a session', body: 'Ease off and let it settle. Backing off now keeps you running later.' },
 };
 
+// Congratulate on finishing a week (or the whole program) by advancing past its last session.
+function celebrateMilestone(justDid: SessionRef, adaptation: Adaptation, name: string) {
+  if (adaptation !== 'advance') return;
+  const week = getWeek(justDid.week);
+  if (!week || justDid.session !== week.sessions.length) return;
+  const next = refAfter(justDid, adaptation);
+  if (!next) {
+    fireMilestone('You did it.', `${name}, that's the whole program. 30 minutes straight, a full return to running.`);
+  } else {
+    fireMilestone(`Week ${justDid.week} done`, `Nice work, ${name}. On to week ${next.week}.`);
+  }
+}
+
 export default function TodayScreen() {
   const { logs, loading, append } = useLogs();
+  const { profile, loading: profileLoading } = useProfile();
   const [checkingIn, setCheckingIn] = useState(false);
   const [symptom, setSymptom] = useState<Symptom | null>(null);
 
   const ref = useMemo(() => currentRef(logs), [logs]);
-  const nudge = NUDGES[logs.length % NUDGES.length];
+  const nudge = NUDGES[logs.length % NUDGES.length](profile.name);
 
   function reset() {
     setCheckingIn(false);
@@ -54,10 +71,11 @@ export default function TodayScreen() {
     const now = new Date();
     const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
     append({ week: ref.week, session: ref.session, date, symptom, adaptation });
+    celebrateMilestone(ref, adaptation, profile.name);
     reset();
   }
 
-  if (loading) {
+  if (loading || profileLoading) {
     return (
       <Screen>
         <Text style={styles.muted}>Loading…</Text>
@@ -69,7 +87,7 @@ export default function TodayScreen() {
     return (
       <Screen>
         <Text style={styles.eyebrow}>PROGRAM COMPLETE</Text>
-        <Text style={styles.done}>You did it.</Text>
+        <Text style={styles.done}>You did it, {profile.name}.</Text>
         <Text style={styles.lede}>
           Eight weeks, {logs.length} sessions, and you’re running 30 minutes straight. That’s a full return to
           running after ACL surgery. Take a moment. This was the hard part.

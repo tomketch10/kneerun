@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { requestPermission, useReminder } from '@/program/notifications';
 import { currentRef, getProgram, isDone, prescription, runningMinutes } from '@/program/program';
+import { useProfile } from '@/program/profile';
 import { useLogs } from '@/program/storage';
 import type { Symptom } from '@/program/types';
 import { colors, fonts, radius, space } from '@/theme';
@@ -13,10 +15,27 @@ const SYMPTOM_LEGEND: { key: Symptom; label: string }[] = [
   { key: 'sore', label: 'Sore' },
 ];
 
+function formatTime(hour: number, minute: number): string {
+  const period = hour < 12 ? 'AM' : 'PM';
+  const h12 = hour % 12 === 0 ? 12 : hour % 12;
+  return `${h12}:${minute < 10 ? '0' : ''}${minute} ${period}`;
+}
+
 export default function PlanScreen() {
   const { logs, loading, reset } = useLogs();
+  const { profile } = useProfile();
+  const { settings, update } = useReminder(profile.name);
   const program = getProgram();
   const current = useMemo(() => currentRef(logs), [logs]);
+
+  async function toggleReminder(on: boolean) {
+    const granted = on ? await requestPermission() : false;
+    update({ ...settings, enabled: on && granted });
+  }
+
+  function shiftHour(delta: number) {
+    update({ ...settings, hour: (settings.hour + delta + 24) % 24 });
+  }
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -69,6 +88,32 @@ export default function PlanScreen() {
             })}
           </View>
         ))}
+
+        <View style={styles.reminderCard}>
+          <View style={styles.reminderRow}>
+            <Text style={styles.reminderTitle}>Daily reminder</Text>
+            <Switch
+              value={settings.enabled}
+              onValueChange={toggleReminder}
+              trackColor={{ true: colors.accent, false: colors.lineStrong }}
+              thumbColor={colors.bgAlt}
+            />
+          </View>
+          {settings.enabled && (
+            <View style={styles.reminderTimeRow}>
+              <Text style={styles.reminderTimeLabel}>Nudge me at</Text>
+              <View style={styles.stepper}>
+                <Pressable style={styles.stepButton} onPress={() => shiftHour(-1)}>
+                  <Text style={styles.stepText}>−</Text>
+                </Pressable>
+                <Text style={styles.timeText}>{formatTime(settings.hour, settings.minute)}</Text>
+                <Pressable style={styles.stepButton} onPress={() => shiftHour(1)}>
+                  <Text style={styles.stepText}>+</Text>
+                </Pressable>
+              </View>
+            </View>
+          )}
+        </View>
 
         {logs.length > 0 && (
           <Pressable style={styles.reset} onPress={reset}>
@@ -142,4 +187,37 @@ const styles = StyleSheet.create({
   nowTag: { color: colors.accentText, fontFamily: fonts.mono, fontSize: 11, letterSpacing: 1 },
   reset: { alignItems: 'center', paddingVertical: space(5), marginTop: space(2) },
   resetText: { color: colors.danger, fontFamily: fonts.body, fontSize: 14 },
+
+  reminderCard: {
+    backgroundColor: colors.bgAlt,
+    borderColor: colors.line,
+    borderWidth: 1,
+    borderRadius: radius.lg,
+    padding: space(5),
+    marginTop: space(3),
+  },
+  reminderRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  reminderTitle: { color: colors.ink, fontFamily: fonts.displaySemi, fontSize: 16 },
+  reminderTimeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: space(4),
+    paddingTop: space(4),
+    borderTopColor: colors.line,
+    borderTopWidth: 1,
+  },
+  reminderTimeLabel: { color: colors.muted, fontFamily: fonts.body, fontSize: 14 },
+  stepper: { flexDirection: 'row', alignItems: 'center', gap: space(3) },
+  stepButton: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    borderColor: colors.lineStrong,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stepText: { color: colors.ink, fontFamily: fonts.displaySemi, fontSize: 18, lineHeight: 22 },
+  timeText: { color: colors.ink, fontFamily: fonts.mono, fontSize: 15, minWidth: 76, textAlign: 'center' },
 });
